@@ -40,6 +40,23 @@ app.post('/api/v1/todos', (req, res) => {
      todo
    })
   });
+// fetch a single todo from db
+app.get('/api/v1/todos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    db.map((todo) => {
+      if (todo.id === id) {
+        return res.status(200).send({
+          success: 'true',
+          message: 'todo retrieved successfully',
+          todo,
+        });
+      } 
+  });
+   return res.status(404).send({
+     success: 'false',
+     message: 'todo does not exist',
+    });
+  });
 
 const PORT = 5000;
 
